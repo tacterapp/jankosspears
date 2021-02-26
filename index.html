@@ -2,7 +2,12 @@
 <html>
 
 <head>
-    <title>Jankos Spears</title>
+    <title>Zoning Spears with Jankos</title>
+
+    <meta name="description"
+        content="From zoning to hitting enemies with G2Jankos Nidalee Spear Simulator 2021. 🎯 Break my score!! 🔥" />
+
+
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
 
@@ -18,10 +23,10 @@
 
     <meta property="og:image" content="https://jankosspears.com/static/jankosshareimage.png">
     <meta property="og:image:secure_url" content="https://jankosspears.com/static/jankosshareimage.png">
-    <meta property="og:image:alt" content="Jankos Spears">
+    <meta property="og:image:alt" content="Zoning Spears with Jankos">
     <meta property="og:image:type" content="image/png">
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Jankos Spears">
+    <meta name="twitter:title" content="Zoning Spears with Jankos">
     <meta name="twitter:image" content="https://jankosspears.com/static/jankosshareimage.png">
 
 </head>
@@ -721,10 +726,10 @@
             $('#final_score').html(score);
 
             if (score >= 10) {
-                status_text = 'great';
+                status_text = 'Very good';
                 status_color = '#00ff00';
             } else {
-                status_text = 'pretty bad';
+                status_text = 'Pretty bad';
                 status_color = '#ff0000';
             }
             $('#score_status').html(status_text).css('color', status_color);
@@ -750,10 +755,10 @@
                 var network = $(this).attr('src');
                 var share_url = document.location.href;
 
-
-                var share_message = document.title;
+                //var share_message = document.title;
+                var share_message = 'From zoning to hitting enemies with G2Jankos Nidalee Spear Simulator 2021. Ready for #LEC';
                 if (score) {
-                    share_message += ' 👊 Beat my score! 🔥' + score;
+                    share_message += score + ' #zoningspears, beat me! 🎯 #LEC';
                 }
 
                 if (network.indexOf('twitter') > -1) {
