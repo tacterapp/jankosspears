@@ -338,7 +338,7 @@
         <br>
         That's actually <span id="score_status">pretty bad</span>
         <br><br>
-        <button onclick="location.reload();" class="btn btn_primary">Try again</button>
+        <button id="btn_retry" class="btn btn_primary">Try again</button>
         <br>
         Share the game
         <br>
@@ -587,47 +587,46 @@
 
                 cells.push('enemies/' + enemies_aux[0]);
                 enemies_aux.shift();
-                //}
-            } else {
-                cells.push('/');
+
             }
 
 
+            if (cells) {
 
 
-
-            j = randomNumber(0, total_cells - 1);
-
-
-
-
-            var found = $('td:eq(' + j + ')').data('who') != '';
-
-
-            while (found) {
                 j = randomNumber(0, total_cells - 1);
-                found = $('td:eq(' + j + ')').data('who') != '';
+
+
+
+
+                var found = $('td:eq(' + j + ')').data('who') != '';
+
+
+                while (found) {
+                    j = randomNumber(0, total_cells - 1);
+                    found = $('td:eq(' + j + ')').data('who') != '';
+                }
+
+
+
+                if (!found) {
+
+
+                    var t_name = cells[0].split('/');
+
+                    var photo = cells[0] != '/' ? "url('static/" + cells[0] + ".png')" : 'none';
+
+
+
+
+                    $('td:eq(' + j + ')').data('who', t_name[0]).data('name', cells[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
+                        'background-position-y': 0
+                    }, 1000);
+
+                }
+
+
             }
-
-
-
-            if (!found) {
-
-
-                var t_name = cells[0].split('/');
-
-                var photo = cells[0] != '/' ? "url('static/" + cells[0] + ".png')" : 'none';
-
-
-
-
-                $('td:eq(' + j + ')').data('who', t_name[0]).data('name', cells[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
-                    'background-position-y': 0
-                }, 1000);
-
-            }
-
-
 
             if (time_left) {
                 setTimeout(showEnemies, game_delay);
@@ -741,6 +740,14 @@
 
             $('#game').hide();
             $('#result').show();
+
+
+            setTimeout(function () {
+                $('#btn_retry').click(function () {
+                    location.reload();
+                });
+            }, 1000);
+
         }
 
         $(function () {
