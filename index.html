@@ -381,6 +381,7 @@
         var timer_lanza;
         var lanza_lanzada = false;
         var timer_enemies;
+        var timer_time;
         var score = 0;
         var best_score = 25;
         var max_lives = 3;
@@ -685,7 +686,7 @@
             $('#intro').hide();
             $('#game').show();
 
-            setInterval(function () {
+            var timer_time = setInterval(function () {
 
                 time_left--;
 
@@ -712,6 +713,8 @@
         }
 
         function endGame() {
+
+            clearInterval(timer_time);
 
             music.pause();
             music_end.play();
