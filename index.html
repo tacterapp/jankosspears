@@ -387,6 +387,7 @@
         var max_lives = 3;
         var total_lives = max_lives;
         var game_delay = 500;
+        var delete_delay = 3000;
 
         var screen_height = $(document).height();
         var screen_width = $(document).width();
@@ -631,7 +632,7 @@
             if (time_left) {
                 setTimeout(showEnemies, game_delay);
 
-                setTimeout(removeCell, 3000, j);
+                setTimeout(removeCell, delete_delay, j);
             }
 
 
