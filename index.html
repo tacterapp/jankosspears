@@ -449,7 +449,7 @@
                 }, 400, function () {
 
 
-
+                    lanza_lanzada = false;
 
 
                     if (current_type == 'enemies') {
@@ -478,10 +478,6 @@
                     }, 150);
 
 
-                    lanza_lanzada = false;
-
-
-
                     setTimeout(function () {
                         $('#lanza').hide();
 
@@ -489,6 +485,7 @@
                         if (current_type == 'enemies') {
                             sound_ko_enemies.currentTime = 0;
                             sound_ko_enemies.play();
+
                         } else if (current_type == 'allies') {
                             sound_ko_allies.currentTime = 0;
                             sound_ko_allies.play();
@@ -509,37 +506,7 @@
 
         });
 
-
-        function randomNumber(min, max) {
-            if (min > max) {
-                let temp = max;
-                max = min;
-                min = temp;
-            }
-
-            if (min <= 0) {
-                return Math.floor(Math.random() * (max + Math.abs(min) + 1)) + min;
-            } else {
-                return Math.floor(Math.random() * (max - min + 1)) + min;
-            }
-        }
-
-        function shuffle(a) {
-            var j, x, i;
-            for (i = a.length - 1; i > 0; i--) {
-                j = Math.floor(Math.random() * (i + 1));
-                x = a[i];
-                a[i] = a[j];
-                a[j] = x;
-            }
-            return a;
-        }
-
         function showEnemies() {
-
-
-
-
             cells = [];
             allies_aux = [...allies];
             enemies_aux = [...enemies];
@@ -659,14 +626,6 @@
         }
 
 
-        function arrayRemove(arr, value) {
-
-            return arr.filter(function (ele) {
-                return ele != value;
-            });
-        }
-
-
         function updateLives() {
             var html = '';
 
@@ -683,7 +642,7 @@
 
         function updateTime() {
 
-            var timer_time = setInterval(function () {
+            timer_time = setInterval(function () {
 
                 time_left--;
 
@@ -754,6 +713,40 @@
                 });
             }, 1000);
 
+        }
+
+
+        function arrayRemove(arr, value) {
+
+            return arr.filter(function (ele) {
+                return ele != value;
+            });
+        }
+
+
+        function randomNumber(min, max) {
+            if (min > max) {
+                let temp = max;
+                max = min;
+                min = temp;
+            }
+
+            if (min <= 0) {
+                return Math.floor(Math.random() * (max + Math.abs(min) + 1)) + min;
+            } else {
+                return Math.floor(Math.random() * (max - min + 1)) + min;
+            }
+        }
+
+        function shuffle(a) {
+            var j, x, i;
+            for (i = a.length - 1; i > 0; i--) {
+                j = Math.floor(Math.random() * (i + 1));
+                x = a[i];
+                a[i] = a[j];
+                a[j] = x;
+            }
+            return a;
         }
 
         $(function () {
