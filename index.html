@@ -213,7 +213,7 @@
 
 
     <div id="intro">
-        <img src="static/jankoshappy.png">
+        <img src="static/jankoshappy.png" width="229" height="200">
         <br><br>
         <div style="font-weight:bold">Welcome to the <b>Jankos Nidalee Spear Simulator 2021</b></div>
         <br>
@@ -267,9 +267,9 @@
 
 
     <div id="result">
-        <img src="static/jankossad.gif">
+        <img src="static/jankossad.gif" width="229" height="128">
         <br><br>
-        You scored <b id="final_score">58</b>
+        You scored <b id="final_score">0</b>
         <br>
         That's actually <span id="score_status">pretty bad</span>
         <br><br>
@@ -491,12 +491,15 @@
 
             var rand_col = randomNumber(0, 3);
 
-            if (rand_col == 1) {
+            if (rand_col == 0) {
+                cells.push('/');
+
+            } else if (rand_col == 1) {
                 if (allies_aux[0]) {
                     cells.push('allies/' + allies_aux[0]);
                     allies_aux.shift();
                 }
-            } else if (rand_col == 2) {
+            } else if (rand_col > 1) {
                 if (enemies_aux[0]) {
                     cells.push('enemies/' + enemies_aux[0]);
                     enemies_aux.shift();
@@ -523,21 +526,11 @@
             var found = $('td:eq(' + j + ')').data('who') != '';
 
 
-            //if (found) {
-            //setTimeout(removeCell, random_delay, j);
-            //}
+            while (found) {
+                j = randomNumber(0, total_cells - 1);
+                found = $('td:eq(' + j + ')').data('who') != '';
+            }
 
-
-            /*
-        while (!found) {
-            j = randomNumber(0, total_cells - 1);
-            found = $('td:eq(' + j + ')').data('who') != '';
-
-            //if (found) {
-            //setTimeout(removeCell, random_delay, j);
-            //}
-        }
-        */
 
 
             if (!found) {
@@ -549,7 +542,6 @@
 
 
 
-                //setTimeout(showEnemies, 1);
                 console.log(j + '---' + photo);
 
                 $('td:eq(' + j + ')').data('who', t_name[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
@@ -563,7 +555,7 @@
             if (time_left) {
                 setTimeout(showEnemies, game_delay);
 
-                setTimeout(removeCell, random_delay, 3000);
+                setTimeout(removeCell, 3000, j);
             }
 
 
