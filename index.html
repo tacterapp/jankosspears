@@ -372,6 +372,7 @@
         var lanza_lanzada = false;
         var timer_enemies;
         var score = 0;
+        var best_score = 25;
         var max_lives = 3;
         var total_lives = max_lives;
         var game_delay = 500;
@@ -727,7 +728,7 @@
         function endGame() {
             $('#final_score').html(score);
 
-            if (score >= 10) {
+            if (score >= best_score) {
                 status_text = 'Very good';
                 status_color = '#00ff00';
             } else {
