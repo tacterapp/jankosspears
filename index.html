@@ -470,7 +470,7 @@
                         current_chars = arrayRemove(current_chars, $(td_current).data('name'));
 
 
-                        $(td_current).data('who', '').data('name', '').data('died', 0).css('background-image', 'none').css('background-color', 'inherit');
+                        $(td_current).data('who', '').data('name', '').css('background-image', 'none').css('background-color', 'inherit');
 
                     }, 150);
 
@@ -703,7 +703,7 @@
 
             $('table').css('left', (screen_width - (parseInt($('table').css('width')))) / 2);
 
-            $('td').data('died', 0).data('who', '');
+            $('td').data('who', '').data('name', '');
 
 
             showEnemies();
