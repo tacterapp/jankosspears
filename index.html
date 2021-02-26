@@ -537,28 +537,11 @@
 
 
 
-            //cells_numbers = [];
             cells = [];
             allies_aux = [...allies];
             enemies_aux = [...enemies];
             allies_aux = shuffle(allies_aux);
             enemies_aux = shuffle(enemies_aux);
-
-
-
-
-            /*
-            
-                        for (var i = 0; i < total_cells; i++) {
-                            cells_numbers.push(i);
-                        }
-                        cells_numbers = shuffle(cells_numbers);
-            */
-
-
-            ////////////////////////////////
-
-            // cada celda es independiente?
 
 
 
@@ -569,13 +552,11 @@
                 cells.push('/');
 
             } else if (rand_col == 1) {
-                //if (allies_aux[0]) {
 
 
 
                 var found = current_chars.includes(allies_aux[0]);
                 if (found) {
-                    //while (found) {
                     allies_aux = shuffle(allies_aux);
                     found = current_chars.includes(allies_aux[0]);
                 }
@@ -587,13 +568,11 @@
 
                 cells.push('allies/' + allies_aux[0]);
                 allies_aux.shift();
-                //}
+
             } else if (rand_col > 1) {
-                //if (enemies_aux[0]) {
 
                 var found = current_chars.includes(enemies_aux[0]);
                 if (found) {
-                    //while (found) {
                     enemies_aux = shuffle(enemies_aux);
                     found = current_chars.includes(enemies_aux[0]);
                 }
@@ -615,15 +594,9 @@
 
 
 
-            var random_delay = 1;//randomNumber(1, 500);
-
-            j = randomNumber(0, total_cells - 1);//cells_numbers[0];
-            //setTimeout(updateCell, random_delay, j);
+            j = randomNumber(0, total_cells - 1);
 
 
-
-
-            //console.log(current_chars);
 
 
             var found = $('td:eq(' + j + ')').data('who') != '';
@@ -782,7 +755,7 @@
                 var network = $(this).attr('alt');
                 var share_url = document.location.href;
 
-                //var share_message = document.title;
+
                 var share_message = 'From zoning to hitting enemies with G2Jankos Nidalee Spear Simulator 2021. Ready for #LEC';
                 if (score) {
                     share_message += ' ' + score + ' #zoningspears, beat me! 🎯 #LEC';
