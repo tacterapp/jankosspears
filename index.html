@@ -151,8 +151,8 @@
             overflow: hidden;
             text-align: center;
             background-repeat: no-repeat;
-            background-position-x: center;
-            background-size: contain;
+            /*background-size: contain;*/
+
         }
 
         #lanza {
@@ -499,20 +499,20 @@
 
 
 
-            cells_numbers = [];
+            //cells_numbers = [];
             cells = [];
             allies_aux = [...allies];
             enemies_aux = [...enemies];
             allies_aux = shuffle(allies_aux);
             enemies_aux = shuffle(enemies_aux);
 
-
-
-            for (var i = 0; i < total_cells; i++) {
-                cells_numbers.push(i);
-            }
-            cells_numbers = shuffle(cells_numbers);
-
+            /*
+            
+                        for (var i = 0; i < total_cells; i++) {
+                            cells_numbers.push(i);
+                        }
+                        cells_numbers = shuffle(cells_numbers);
+            */
 
 
             ////////////////////////////////
@@ -544,11 +544,37 @@
 
             var random_delay = 1;//randomNumber(1, 500);
 
-            j = cells_numbers[0];
+            j = randomNumber(0, total_cells);//cells_numbers[0];
             //setTimeout(updateCell, random_delay, j);
 
 
+
+
+            console.log(j + '---' + $('td:eq(' + j + ')').data('who'));
+
+
+            var found = $('td:eq(' + j + ')').data('who') != '';
+
+
+            if (found) {
+                setTimeout(removeCell, random_delay, j);
+            }
+
+
+            while (!found) {
+                j = randomNumber(0, total_cells);
+                found = ($('td:eq(' + j + ')').data('who') != '');
+
+                if (found) {
+                    setTimeout(removeCell, random_delay, j);
+                }
+            }
+
+
+
+
             var t_name = cells[0].split('/');
+
             var photo = cells[0] != '/' ? "url('static/" + cells[0] + ".png')" : 'none';
 
             $('td:eq(' + j + ')').data('who', t_name[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
@@ -599,6 +625,15 @@
 
         }
 
+
+        function removeCell(j) {
+
+            var photo = 'none';
+
+            $('td:eq(' + j + ')').data('who', '').css('background-position-y', cell_height).css('background-image', photo).animate({
+                'background-position-y': 0
+            }, 1000);
+        }
 
         function updateCell(j) {
 
