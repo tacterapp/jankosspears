@@ -15,11 +15,11 @@
         integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/gh/mathusummut/confetti.js/confetti.min.js"></script>
 
-    <link rel="prefetch" href="static/music2.mp3" />
-    <link rel="prefetch" href="static/music_end.mp3" />
-    <link rel="prefetch" href="static/ko.mp3" />
-    <link rel="prefetch" href="static/ko_allies3.mp3" />
-    <link rel="prefetch" href="static/lanza5.mp3" />
+    <link rel="prefetch" href="static/sounds/music3.mp3" />
+    <link rel="prefetch" href="static/sounds/music_end.mp3" />
+    <link rel="prefetch" href="static/sounds/ko.mp3" />
+    <link rel="prefetch" href="static/sounds/ko_allies3.mp3" />
+    <link rel="prefetch" href="static/sounds/lanza5.mp3" />
     <link rel="prefetch" href="static/lanza2.png" />
 
     <meta property="og:image" content="https://jankosspears.com/static/jankosshareimage.png">
@@ -355,23 +355,23 @@
 
 
     <audio id="sound_lanza">
-        <source src="static/lanza5.mp3" type="audio/mp3">
+        <source src="static/sounds/lanza5.mp3" type="audio/mp3">
     </audio>
 
     <audio id="sound_ko_enemies">
-        <source src="static/ko.mp3" type="audio/mp3">
+        <source src="static/sounds/ko.mp3" type="audio/mp3">
     </audio>
 
     <audio id="sound_ko_allies">
-        <source src="static/ko_allies3.mp3" type="audio/mp3">
+        <source src="static/sounds/ko_allies3.mp3" type="audio/mp3">
     </audio>
 
     <audio id="music" loop>
-        <source src="static/music2.mp3" type="audio/mp3">
+        <source src="static/sounds/music3.mp3" type="audio/mp3">
     </audio>
 
-    <audio id="music_end" loop>
-        <source src="static/music_end.mp3" type="audio/mp3">
+    <audio id="music_end">
+        <source src="static/sounds/music_end.mp3" type="audio/mp3">
     </audio>
 
 
@@ -738,6 +738,10 @@
         }
 
         function endGame() {
+
+            music.pause();
+            music_end.play();
+
             $('#final_score').html(score);
 
             if (score >= best_score) {
