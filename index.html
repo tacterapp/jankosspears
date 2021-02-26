@@ -680,10 +680,7 @@
             $('#lives').html(html);
         }
 
-        function startGame() {
-
-            $('#intro').hide();
-            $('#game').show();
+        function updateTime() {
 
             var timer_time = setInterval(function () {
 
@@ -698,6 +695,13 @@
 
                 $('#time').html('0:' + time_left);
             }, 1000);
+        }
+
+        function startGame() {
+
+            $('#intro').hide();
+            $('#game').show();
+
 
 
             total_cells = $('td').length;
@@ -707,6 +711,7 @@
             $('td').data('who', '').data('name', '');
 
 
+            updateTime();
             showEnemies();
             updateLives();
         }
