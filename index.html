@@ -263,6 +263,16 @@
                 overflow-y: scroll;
             }
 
+            #btn_menu {
+                z-index: 99;
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                border-radius: 0;
+                width: 100%;
+            }
+
         }
 
         @media screen and (min-width: 500px) {
@@ -382,8 +392,8 @@
             </tr>
         </table>
         <br>
-        <button onclick="hideLeaderboard()" class="btn btn_primary"
-            style="z-index:99;position:fixed;bottom:0;left:0;right:0;">Back
+
+        <button id="btn_menu" onclick="hideLeaderboard()" class="btn btn_primary">Back
             to menu</button>
     </div>
 
