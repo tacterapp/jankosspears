@@ -374,7 +374,12 @@
 
     <div id="leaderboard">
         <h2>Leaderboard</h2>
-        <table width="100%" cellpadding="5" cellspacing="1" bgcolor="white">
+        <table id="leaderboard_table" width="100%" cellpadding="5" cellspacing="1" bgcolor="white">
+            <tr>
+                <td>Pos</td>
+                <td>Nickname</td>
+                <td>zoningspears</td>
+            </tr>
         </table>
         <br>
         <button onclick="startGame()" class="btn btn_primary">Start the game</button>
@@ -554,7 +559,7 @@
                     items.push('<tr><td width="1">' + emoji + '</td><td width="70%">' + val.name + '</td><td width="30%">' + val.score + '</td></tr>');
                 });
 
-                $("#leaderboard table").html(items.join(""));
+                $("#leaderboard_table").append(items.join(""));
             });
 
             $('#intro').hide();
