@@ -621,15 +621,18 @@
 
                     $("#leaderboard_table").append(items.join(""));
 
+
+                    confetti.start();
+
+                    setTimeout(function () {
+                        confetti.stop();
+                    }, 2000);
+
                 });
 
             }
 
-            confetti.start();
 
-            setTimeout(function () {
-                confetti.stop();
-            }, 2000);
 
             $('#intro').hide();
             $('#leaderboard').show();
