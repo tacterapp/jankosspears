@@ -378,12 +378,14 @@
         <img src="static/shareIcons/twitter.png" class="btn_social" width="40" height="40" alt="twitter">
         <img src="static/shareIcons/facebook.png" class="btn_social" width="40" height="40" alt="facebook">
         <br><br>
-        Hey, do you play <b>TFT</b>? Check <b>Tacter App</b> and win 50% more games!
-        <br><br>
-        <a href="https://get.tacter.app/WxYiSJCxaeb" target="_blank" class="btn btn_default">Try Tacter App Now</a>
-        <br>
-        Made with love by<br>
-        <a href="https://twitter.com/tacterapp" target="_blank">@tacterapp ❤️</a>
+        <div id="app" style="display:none">
+            Hey, do you play <b>TFT</b>? Check <b>Tacter App</b> and win 50% more games!
+            <br><br>
+            <a href="https://get.tacter.app/WxYiSJCxaeb" target="_blank" class="btn btn_default">Try Tacter App Now</a>
+            <br>
+            Made with love by<br>
+            <a href="https://twitter.com/tacterapp" target="_blank">@tacterapp ❤️</a>
+        </div>
     </div>
 
     <div id="leaderboard">
@@ -504,6 +506,9 @@
                         sound_ko_enemies.currentTime = 0;
                         sound_ko_enemies.play();
 
+
+                        showEnemies(false);
+
                         score++;
                         $('#score').html(score);
 
@@ -522,6 +527,7 @@
 
 
                         $(td_current).data('who', '').data('name', '').css('background-image', 'none').css('background-color', 'inherit');
+
 
                     }, 150);
 
@@ -596,7 +602,7 @@
             $('#leaderboard').hide();
         }
 
-        function showEnemies() {
+        function showEnemies(timeout_on) {
             cells = [];
             allies_aux = [...allies];
             enemies_aux = [...enemies];
@@ -618,6 +624,7 @@
                 var found = current_chars.includes(allies_aux[0]);
                 if (found) {
                     allies_aux = shuffle(allies_aux);
+                    allies_aux = shuffle(allies_aux);
                     found = current_chars.includes(allies_aux[0]);
                 }
 
@@ -633,6 +640,7 @@
 
                 var found = current_chars.includes(enemies_aux[0]);
                 if (found) {
+                    enemies_aux = shuffle(enemies_aux);
                     enemies_aux = shuffle(enemies_aux);
                     found = current_chars.includes(enemies_aux[0]);
                 }
@@ -686,8 +694,10 @@
 
             }
 
-            if (time_left) {
-                setTimeout(showEnemies, game_delay);
+            if (time_left && timeout_on) {
+                setTimeout(function () {
+                    showEnemies(true);
+                }, game_delay);
 
                 setTimeout(removeCell, delete_delay, j);
             }
@@ -763,7 +773,8 @@
 
 
             updateTime();
-            showEnemies();
+            showEnemies(true);
+            showEnemies(false);
             updateLives();
         }
 
@@ -802,32 +813,42 @@
                 $('#btn_retry').click(function () {
                     location.reload();
                 });
-            }, 1000);
 
-            if (!score) {
-                $('#btn_save').hide();
-            }
 
-            $('#btn_save').click(function () {
 
-                $('#btn_save').hide();
+                if (score) {
 
-                var nickname = prompt("WHAT IS YOUR NICKNAME? - LEADERBOARD");
-                if (nickname) {
-                    $.ajax({
-                        type: "POST",
-                        url: "https://jankosspears.vivirenremoto.com/?action=add",
-                        dataType: "json",
-                        data: {
-                            name: nickname,
-                            score: score
-                        },
-                        success: function (data) {
-                            alert('YOUR RANK: ' + data.rank);
+                    $('#btn_save').click(function () {
+
+                        $('#btn_save').hide();
+
+                        var nickname = prompt("WHAT IS YOUR NICKNAME? - LEADERBOARD");
+                        if (nickname) {
+                            $.ajax({
+                                type: "POST",
+                                url: "https://jankosspears.vivirenremoto.com/?action=add",
+                                dataType: "json",
+                                data: {
+                                    name: nickname,
+                                    score: score
+                                },
+                                success: function (data) {
+                                    alert('YOUR RANK: ' + data.rank);
+                                }
+                            });
                         }
                     });
+                } else {
+
+                    $('#btn_save').hide();
                 }
-            });
+
+
+                $('#app').fadeIn('slow');
+
+            }, 1000);
+
+
 
         }
 
