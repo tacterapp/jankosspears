@@ -596,36 +596,41 @@
 
         function showLeaderboard() {
 
-            $.getJSON("https://jankosspears.vivirenremoto.com/?action=rank", function (data) {
-                var items = [];
-                $.each(data, function (key, val) {
+            var total_rows = $("#leaderboard_table tr").length;
 
-                    var emoji = '';
 
-                    if (key == 0) {
-                        emoji = '🥇 ';
-                    } else if (key == 1) {
-                        emoji = '🥈 ';
-                    } else if (key == 2) {
-                        emoji = '🥉 ';
-                    } else {
-                        emoji = key + 1;
-                    }
+            if (total_rows == 1) {
 
-                    items.push('<tr><td width="1">' + emoji + '</td><td width="70%">' + val.name + '</td><td width="30%">' + val.score + '</td></tr>');
+                $.getJSON("https://jankosspears.vivirenremoto.com/?action=rank", function (data) {
+                    var items = [];
+                    $.each(data, function (key, val) {
+
+                        var emoji = '';
+
+                        if (key == 0) {
+                            emoji = '🥇 ';
+                        } else if (key == 1) {
+                            emoji = '🥈 ';
+                        } else if (key == 2) {
+                            emoji = '🥉 ';
+                        } else {
+                            emoji = key + 1;
+                        }
+
+                        items.push('<tr><td width="1">' + emoji + '</td><td width="70%">' + val.name + '</td><td width="30%">' + val.score + '</td></tr>');
+                    });
+
+                    $("#leaderboard_table").append(items.join(""));
+
                 });
 
-                $("#leaderboard_table").append(items.join(""));
+            }
 
+            confetti.start();
 
-                confetti.start();
-
-                setTimeout(function () {
-                    confetti.stop();
-                }, 1000);
-
-
-            });
+            setTimeout(function () {
+                confetti.stop();
+            }, 2000);
 
             $('#intro').hide();
             $('#leaderboard').show();
