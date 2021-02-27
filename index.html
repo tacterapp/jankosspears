@@ -155,6 +155,7 @@
             text-align: center;
             background-repeat: no-repeat;
             background-size: contain;
+            background-position-x: center;
         }
 
         #lanza {
@@ -435,7 +436,7 @@
         var max_lives = 3;
         var total_lives = max_lives;
         var game_delay = 500;
-        var delete_delay = 3000;
+        var delete_delay = 2500;
 
         var screen_height = $(document).height();
         var screen_width = $(document).width();
@@ -507,7 +508,10 @@
                         sound_ko_enemies.play();
 
 
-                        showEnemies(false);
+                        var rand_lucky = randomNumber(0, 2);
+                        if (rand_lucky == 1) {
+                            showEnemies(false);
+                        }
 
                         score++;
                         $('#score').html(score);
@@ -612,12 +616,9 @@
 
 
 
-            var rand_col = randomNumber(0, 3);
+            var rand_col = randomNumber(0, 4);
 
-            if (rand_col == 0) {
-                cells.push('/');
-
-            } else if (rand_col == 1) {
+            if (rand_col == 1) {
 
 
 
@@ -657,7 +658,7 @@
             }
 
 
-            if (cells) {
+            if (cells.length > 0) {
 
 
                 j = randomNumber(0, total_cells - 1);
@@ -699,7 +700,9 @@
                     showEnemies(true);
                 }, game_delay);
 
-                setTimeout(removeCell, delete_delay, j);
+                if (j) {
+                    setTimeout(removeCell, delete_delay, j);
+                }
             }
 
 
