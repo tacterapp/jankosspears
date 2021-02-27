@@ -779,6 +779,10 @@
                 });
             }, 1000);
 
+            if (!score) {
+                $('#btn_save').hide();
+            }
+
             $('#btn_save').click(function () {
 
                 $('#btn_save').hide();
