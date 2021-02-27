@@ -136,7 +136,7 @@
             display: none;
         }
 
-        table {
+        #table {
             position: fixed;
             border: 1px black solid;
             border-top: 70px black solid;
@@ -147,7 +147,7 @@
             background-size: cover;
         }
 
-        td {
+        #table td {
             width: 33%;
             background: none;
             border: 1px black solid;
@@ -204,8 +204,20 @@
             position: fixed;
             display: none;
             text-align: center;
-            z-index: 99;
             color: white;
+
+        }
+
+        #leaderboard {
+            position: fixed;
+            display: none;
+            text-align: center;
+            color: white;
+        }
+
+        #leaderboard td {
+            text-align: left;
+            background: black;
 
         }
 
@@ -220,7 +232,7 @@
 
 
 
-            table {
+            #table {
                 width: 100%;
             }
 
@@ -233,7 +245,8 @@
 
             #game,
             #result,
-            #intro {
+            #intro,
+            #leaderboard {
                 position: fixed;
                 width: 100%;
                 left: 0;
@@ -243,7 +256,8 @@
             }
 
             #intro,
-            #result {
+            #result,
+            #leaderboard {
                 width: 90%;
                 margin: auto;
                 overflow-y: scroll;
@@ -255,13 +269,15 @@
 
             #result,
             #intro,
-            table {
+            #leaderboard,
+            #table {
                 width: 480px;
                 left: 50%;
             }
 
             #result,
-            #intro {
+            #intro,
+            #leaderboard {
                 margin-left: -240px;
                 top: 5%;
                 bottom: 5%;
@@ -286,6 +302,8 @@
         <br><br>
         <button onclick="startGame();" class="btn btn_primary">Start the game</button>
         <br>
+        <button onclick="showLeaderboard();" class="btn btn_default">🏆 Leaderboard</button>
+        <br>
         Share the game
         <br>
         <img src="static/shareIcons/whatsapp.png" class="btn_social" width="40" height="40" alt="whatsapp">
@@ -308,7 +326,7 @@
         </div>
 
 
-        <table cellspacing="0" cellpadding="0">
+        <table id="table" cellspacing="0" cellpadding="0">
             <tr>
                 <td></td>
                 <td></td>
@@ -337,6 +355,8 @@
         That's actually <span id="score_status">pretty bad</span>
         <br><br>
         <button id="btn_retry" class="btn btn_primary">Try again</button>
+
+        <button style="margin-top:15px;" id="btn_save" class="btn btn_default">Save your score</button>
         <br>
         Share your score
         <br>
@@ -352,6 +372,15 @@
         <a href="https://twitter.com/tacterapp" target="_blank">@tacterapp ❤️</a>
     </div>
 
+    <div id="leaderboard">
+        <h2>Leaderboard</h2>
+        <table width="100%" cellpadding="5" cellspacing="1" bgcolor="white">
+        </table>
+        <br>
+        <button onclick="startGame()" class="btn btn_primary">Start the game</button>
+        <br>
+        <button onclick="hideLeaderboard()" class="btn btn_default">Back to menu</button>
+    </div>
 
     <audio id="sound_lanza">
         <source src="static/sounds/lanza5.mp3" type="audio/mp3">
@@ -391,7 +420,7 @@
         var screen_width = $(document).width();
         var lanza_width = parseInt($('#lanza').css('width'));
         var lanza_height = parseInt($('#lanza').css('height'));
-        var cell_height = parseInt($('td:first').css('height'));
+        var cell_height = parseInt($('#table td:first').css('height'));
 
 
         var current_chars = [];
@@ -414,7 +443,7 @@
             best_score = 1;
         }
 
-        $('td').click(function (e) {
+        $('#table td').click(function (e) {
 
             if (!lanza_lanzada) {
                 lanza_lanzada = true;
@@ -435,7 +464,7 @@
                 var pos_y;
 
                 pos_x = $(this).position().left + ((parseInt($(this).css('width'))) / 2);
-                pos_x += $('table').position().left;
+                pos_x += $('#table').position().left;
                 pos_x -= lanza_width;
 
                 pos_y = $(this).position().top + ((parseInt($(this).css('height'))) / 2);
@@ -504,6 +533,39 @@
 
         });
 
+        function showLeaderboard() {
+
+            $.getJSON("http://185.253.154.42/jankosspears/", function (data) {
+                var items = [];
+                $.each(data, function (key, val) {
+
+                    var emoji = '';
+
+                    if (key == 0) {
+                        emoji = '🥇 ';
+                    } else if (key == 1) {
+                        emoji = '🥈 ';
+                    } else if (key == 2) {
+                        emoji = '🥉 ';
+                    } else {
+                        emoji = key + 1;
+                    }
+
+                    items.push('<tr><td width="1">' + emoji + '</td><td width="70%">' + val.name + '</td><td width="30%">' + val.score + '</td></tr>');
+                });
+
+                $("#leaderboard table").html(items.join(""));
+            });
+
+            $('#intro').hide();
+            $('#leaderboard').show();
+        }
+
+        function hideLeaderboard() {
+            $('#intro').show();
+            $('#leaderboard').hide();
+        }
+
         function showEnemies() {
             cells = [];
             allies_aux = [...allies];
@@ -565,12 +627,12 @@
 
 
 
-                var found = $('td:eq(' + j + ')').data('who') != '';
+                var found = $('#table td:eq(' + j + ')').data('who') != '';
 
 
                 while (found) {
                     j = randomNumber(0, total_cells - 1);
-                    found = $('td:eq(' + j + ')').data('who') != '';
+                    found = $('#table td:eq(' + j + ')').data('who') != '';
                 }
 
 
@@ -585,7 +647,7 @@
 
 
 
-                    $('td:eq(' + j + ')').data('who', t_name[0]).data('name', cells[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
+                    $('#table td:eq(' + j + ')').data('who', t_name[0]).data('name', cells[0]).css('background-position-y', cell_height).css('background-image', photo).animate({
                         'background-position-y': 0
                     }, 1000);
 
@@ -611,7 +673,7 @@
             var photo = 'none';
 
 
-            var obj = $('td:eq(' + j + ')');
+            var obj = $('#table td:eq(' + j + ')');
 
 
             current_chars = arrayRemove(current_chars, $(obj).data('name'));
@@ -658,15 +720,16 @@
         function startGame() {
 
             $('#intro').hide();
+            $('#leaderboard').hide();
             $('#game').show();
 
 
 
-            total_cells = $('td').length;
+            total_cells = $('#table td').length;
 
-            $('table').css('left', (screen_width - (parseInt($('table').css('width')))) / 2);
+            $('#table').css('left', (screen_width - (parseInt($('#table').css('width')))) / 2);
 
-            $('td').data('who', '').data('name', '');
+            $('#table td').data('who', '').data('name', '');
 
 
             updateTime();
@@ -710,6 +773,27 @@
                     location.reload();
                 });
             }, 1000);
+
+            $('#btn_save').click(function () {
+
+                $('#btn_save').hide();
+
+                var nickname = prompt("WHAT IS YOUR NICKNAME? - LEADERBOARD");
+                if (nickname) {
+                    $.ajax({
+                        type: "POST",
+                        url: "http://185.253.154.42/jankosspears/add.php",
+                        dataType: "json",
+                        data: {
+                            name: nickname,
+                            score: score
+                        },
+                        success: function (data) {
+                            alert('YOUR RANK: ' + data.rank);
+                        }
+                    });
+                }
+            });
 
         }
 
