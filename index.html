@@ -302,7 +302,7 @@
         <br><br>
         <button onclick="startGame();" class="btn btn_primary">Start the game</button>
         <br>
-        <button onclick="showLeaderboard();" class="btn btn_default">🏆 Leaderboard</button>
+        <button style="display:none" onclick="showLeaderboard();" class="btn btn_default">🏆 Leaderboard</button>
         <br>
         Share the game
         <br>
@@ -356,7 +356,7 @@
         <br><br>
         <button id="btn_retry" class="btn btn_primary">Try again</button>
 
-        <button style="margin-top:15px;" id="btn_save" class="btn btn_default">Save your score</button>
+        <button style="display:none;margin-top:15px;" id="btn_save" class="btn btn_default">Save your score</button>
         <br>
         Share your score
         <br>
@@ -540,7 +540,7 @@
 
         function showLeaderboard() {
 
-            $.getJSON("http://185.253.154.42/jankosspears/", function (data) {
+            $.getJSON("https://jankosspears.vivirenremoto.com/?action=rank", function (data) {
                 var items = [];
                 $.each(data, function (key, val) {
 
@@ -787,7 +787,7 @@
                 if (nickname) {
                     $.ajax({
                         type: "POST",
-                        url: "http://185.253.154.42/jankosspears/add.php",
+                        url: "https://jankosspears.vivirenremoto.com/?action=add",
                         dataType: "json",
                         data: {
                             name: nickname,
