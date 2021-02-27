@@ -460,6 +460,8 @@
 
         if (document.location.href.indexOf('test') > -1) {
             best_score = 1;
+
+            $(sound_ko_enemies).attr('src', 'static/sounds/hit.mp3');
         }
 
         $('#table td').click(function (e) {
@@ -574,6 +576,15 @@
                 });
 
                 $("#leaderboard_table").append(items.join(""));
+
+
+                confetti.start();
+
+                setTimeout(function () {
+                    confetti.stop();
+                }, 1000);
+
+
             });
 
             $('#intro').hide();
